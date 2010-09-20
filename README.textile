@@ -1,0 +1,11 @@
+h1. BKSessionController
+
+BKSessionController deals with a large file transfer between devices using a GKSession object. Data to be sent will be automatically split into smaller chunk than the GKSession object can afford to. BKSessionController consists of the following two classes:
+
+* BKSessionController - A main controller.
+* BKChunkDataContainer - A chunk data container.
+
+h2. Contact
+
+* "http://blog.boreal-kiss.net/":http://blog.boreal-kiss.net/
+* "http://twitter.com/borealkiss":http://twitter.com/borealkiss
