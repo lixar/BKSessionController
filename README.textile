@@ -5,6 +5,10 @@ BKSessionController deals with a large file transfer between devices using a GKS
 * BKSessionController - A main controller.
 * BKChunkDataContainer - A chunk data container.
 
+h2. Related article
+
+* "GameKit Bluetooth Transfer Problem - Stack Overflow":http://stackoverflow.com/questions/2877523/gamekit-bluetooth-transfer-problem
+
 h2. Contact
 
 * "http://blog.boreal-kiss.net/":http://blog.boreal-kiss.net/
