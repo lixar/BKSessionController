@@ -49,7 +49,6 @@
 		932AFD511240B15400521DA5 /* BKSessionController-GKSessionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BKSessionController-GKSessionDelegate.m"; sourceTree = "<group>"; };
 		932AFD521240B15400521DA5 /* BKSessionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKSessionController.h; sourceTree = "<group>"; };
 		932AFD531240B15400521DA5 /* BKSessionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKSessionController.m; sourceTree = "<group>"; };
-		932AFD551240B15500521DA5 /* BKSessionControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKSessionControllerDelegate.h; sourceTree = "<group>"; };
 		932AFD611240B37800521DA5 /* BKChunkDataContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKChunkDataContainer.h; sourceTree = "<group>"; };
 		932AFD621240B37800521DA5 /* BKChunkDataContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKChunkDataContainer.m; sourceTree = "<group>"; };
 		932AFD6A1240BA2700521DA5 /* TestVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestVC.h; sourceTree = "<group>"; };
@@ -76,6 +75,7 @@
 		93E967F411E8584200260016 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		93E967F511E8584200260016 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		93E967F611E8584200260016 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		93FA815612489B420015C441 /* BKSessionControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKSessionControllerDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +96,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				93FA815512489B420015C441 /* BKSessionControllerDelegate */,
 				932AFD601240B36B00521DA5 /* BKChunkDataContainer */,
 				932AFD4D1240B15400521DA5 /* BKSessionController */,
 				932AFD561240B15500521DA5 /* TestVC */,
@@ -157,7 +158,6 @@
 		932AFD4D1240B15400521DA5 /* BKSessionController */ = {
 			isa = PBXGroup;
 			children = (
-				932AFD541240B15500521DA5 /* BKSessionControllerDelegate */,
 				932AFD501240B15400521DA5 /* BKSessionController-GKSessionDelegate.h */,
 				932AFD511240B15400521DA5 /* BKSessionController-GKSessionDelegate.m */,
 				932AFD521240B15400521DA5 /* BKSessionController.h */,
@@ -166,14 +166,6 @@
 				932AFDD81240D78200521DA5 /* BKSessionController-DelegateSupport.m */,
 			);
 			path = BKSessionController;
-			sourceTree = "<group>";
-		};
-		932AFD541240B15500521DA5 /* BKSessionControllerDelegate */ = {
-			isa = PBXGroup;
-			children = (
-				932AFD551240B15500521DA5 /* BKSessionControllerDelegate.h */,
-			);
-			path = BKSessionControllerDelegate;
 			sourceTree = "<group>";
 		};
 		932AFD561240B15500521DA5 /* TestVC */ = {
@@ -242,6 +234,14 @@
 				93E967F611E8584200260016 /* Icon@2x.png */,
 			);
 			path = Icons;
+			sourceTree = "<group>";
+		};
+		93FA815512489B420015C441 /* BKSessionControllerDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				93FA815612489B420015C441 /* BKSessionControllerDelegate.h */,
+			);
+			path = BKSessionControllerDelegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

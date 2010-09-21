@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 /**
- * Splits data into smaller chunks in a specified size and preserves them in an array.
+ * A private class splitting data into smaller chunks in a specified size and preserves them in an array.
  */
 @interface BKChunkDataContainer : NSObject {
 	NSUInteger _chunkLength;

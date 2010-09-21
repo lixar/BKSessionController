@@ -42,8 +42,27 @@ extern NSString * const BKSessionControllerPeerDidDisconnectNotification;
  * The designated initializer.
  */
 -(id)initWithSession:(GKSession *)session;
+
+/**
+ * Sends data in any size to given peers.
+ * This is the same interface/functionality as that found in a GKSession object.
+ */
 -(void)sendData:(NSData *)data toPeers:(NSArray *)peers;
+
+/**
+ * Sends data in any size to all peers.
+ * This is the same interface/functionality as that found in a GKSession object.
+ */
 -(void)sendDataToAllPeers:(NSData *)data;
+
+/**
+ * A data receive handler.
+ * This is the same interface/functionality as that required in a GKSession object's handler.
+ */
 -(void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context;
+
+/**
+ * Disconnects the session from all connected peers.
+ */
 -(void)disconnect;
 @end

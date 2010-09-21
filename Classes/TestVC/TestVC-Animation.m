@@ -60,32 +60,4 @@ static NSString * const HideAnimationID	= @"HideAnimationID";
 	}
 }
 
-/*
--(void)_showLabel{
-	[UIView beginAnimations:ShowAnimationID context:nil];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(_animationDidStop:finished:context:)];
-	_label.alpha = 1.0;
-	[UIView commitAnimations];
-}
- */
-
-/*
--(void)_hideLabelAfterDelay:(NSTimeInterval)delay{
-	[self performSelector:@selector(_hideLabel) withObject:nil afterDelay:delay];
-}
- */
-
-/*
--(void)_hideLabel{
-	[UIView beginAnimations:HideAnimationID context:nil];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(_animationDidStop:finished:context:)];
-	_label.alpha = 0.0;
-	[UIView commitAnimations];
-}
- */
-
-
-
 @end

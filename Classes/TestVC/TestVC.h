@@ -33,12 +33,24 @@
  * Finds other devices connected to via a GKSession object.
  */
 -(IBAction)findPeer:(id)sender;
+
+/**
+ * Selects an image from the photo library.
+ */
 -(IBAction)selectImage:(id)sender;
+
+/**
+ * Configures a BKSessionController object from a GKSession object.
+ */
 -(void)createSession:(GKSession *)session;
 
 /**
  * Sends an image to other device via a GKSession object.
  */
 -(void)sendImage:(UIImage *)image;
+
+/**
+ * Save the received image from a remote peer to the photo library.
+ */
 -(void)saveImage;
 @end

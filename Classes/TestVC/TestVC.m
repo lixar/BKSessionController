@@ -30,8 +30,6 @@
 	_label.textColor = [UIColor whiteColor];
 	_indicator.hidesWhenStopped = YES;
 	_progressView.hidden = YES;
-	
-	//_connectionStateImageView.hidden = YES;
 	_connectionStateImageView.alpha = 0.0;
 }
 

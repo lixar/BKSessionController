@@ -20,7 +20,6 @@ static NSUInteger MaximumChunkLength = 87000;
 
 @implementation BKChunkDataContainer
 @synthesize chunkLength = _chunkLength;
-
 @synthesize data = _data;
 @synthesize chunkDataContainer = _chunkDataContainer;
 

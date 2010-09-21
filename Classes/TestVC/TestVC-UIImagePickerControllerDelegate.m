@@ -13,9 +13,7 @@
 
 - (void)imagePickerController:(UIImagePickerController *) picker didFinishPickingMediaWithInfo:(NSDictionary *) info{
 	UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-	
 	[self sendImage:image];
-	
 	[picker dismissModalViewControllerAnimated:YES];
 }
 
