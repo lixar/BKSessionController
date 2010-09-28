@@ -40,6 +40,7 @@ static NSUInteger MaximumChunkLength = 87000;
 		self.data = data;
 		_chunkLength = length;
 		
+		//The chunk size is too large.
 		if (_chunkLength > MaximumChunkLength){
 			NSLog(@"%s Chunk data size larger than %d bytes. Use smaller one or default value.", __FUNCTION__, _chunkLength);
 		}

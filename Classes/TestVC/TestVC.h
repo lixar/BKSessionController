@@ -17,7 +17,6 @@
 @interface TestVC : UIViewController {
 	BKSessionController *_sessionController;
 	
-	//UI.
 	IBOutlet UIActivityIndicatorView *_indicator;
 	IBOutlet UILabel *_label;
 	IBOutlet UIProgressView *_progressView;

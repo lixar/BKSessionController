@@ -12,6 +12,8 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		930356C61242033600DEF574 /* TestVC-BKSessionControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 930356C51242033600DEF574 /* TestVC-BKSessionControllerDelegate.m */; };
+		93122A391251E8290017B803 /* BKSessionController-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 93122A381251E8290017B803 /* BKSessionController-Utilities.m */; };
+		93122A721251ECEE0017B803 /* BKSessionController-Accessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 93122A711251ECEE0017B803 /* BKSessionController-Accessors.m */; };
 		932AFD581240B15500521DA5 /* BKSessionController-GKSessionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 932AFD511240B15400521DA5 /* BKSessionController-GKSessionDelegate.m */; };
 		932AFD591240B15500521DA5 /* BKSessionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932AFD531240B15400521DA5 /* BKSessionController.m */; };
 		932AFD631240B37800521DA5 /* BKChunkDataContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 932AFD621240B37800521DA5 /* BKChunkDataContainer.m */; };
@@ -45,6 +47,10 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		930356C41242033600DEF574 /* TestVC-BKSessionControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestVC-BKSessionControllerDelegate.h"; sourceTree = "<group>"; };
 		930356C51242033600DEF574 /* TestVC-BKSessionControllerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TestVC-BKSessionControllerDelegate.m"; sourceTree = "<group>"; };
+		93122A371251E8290017B803 /* BKSessionController-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BKSessionController-Utilities.h"; sourceTree = "<group>"; };
+		93122A381251E8290017B803 /* BKSessionController-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BKSessionController-Utilities.m"; sourceTree = "<group>"; };
+		93122A701251ECEE0017B803 /* BKSessionController-Accessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BKSessionController-Accessors.h"; sourceTree = "<group>"; };
+		93122A711251ECEE0017B803 /* BKSessionController-Accessors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BKSessionController-Accessors.m"; sourceTree = "<group>"; };
 		932AFD501240B15400521DA5 /* BKSessionController-GKSessionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BKSessionController-GKSessionDelegate.h"; sourceTree = "<group>"; };
 		932AFD511240B15400521DA5 /* BKSessionController-GKSessionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BKSessionController-GKSessionDelegate.m"; sourceTree = "<group>"; };
 		932AFD521240B15400521DA5 /* BKSessionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKSessionController.h; sourceTree = "<group>"; };
@@ -164,6 +170,10 @@
 				932AFD531240B15400521DA5 /* BKSessionController.m */,
 				932AFDD71240D78200521DA5 /* BKSessionController-DelegateSupport.h */,
 				932AFDD81240D78200521DA5 /* BKSessionController-DelegateSupport.m */,
+				93122A371251E8290017B803 /* BKSessionController-Utilities.h */,
+				93122A381251E8290017B803 /* BKSessionController-Utilities.m */,
+				93122A701251ECEE0017B803 /* BKSessionController-Accessors.h */,
+				93122A711251ECEE0017B803 /* BKSessionController-Accessors.m */,
 			);
 			path = BKSessionController;
 			sourceTree = "<group>";
@@ -325,6 +335,8 @@
 				932AFDD91240D78200521DA5 /* BKSessionController-DelegateSupport.m in Sources */,
 				930356C61242033600DEF574 /* TestVC-BKSessionControllerDelegate.m in Sources */,
 				93CA3DC312475A470076E2D0 /* TestVC-Animation.m in Sources */,
+				93122A391251E8290017B803 /* BKSessionController-Utilities.m in Sources */,
+				93122A721251ECEE0017B803 /* BKSessionController-Accessors.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

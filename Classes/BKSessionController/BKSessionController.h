@@ -27,11 +27,30 @@ extern NSString * const BKSessionControllerPeerDidDisconnectNotification;
 	NSMutableData *_receivedData;
 	id <BKSessionControllerDelegate> _delegate;
 	CGFloat _progress;
+	
+	//New
+	BOOL _isSender;
 }
+
+/**
+ * A GKSession object controlled by the BKSessionController.
+ */
 @property (nonatomic, retain) GKSession *session;
 @property (nonatomic, assign) id <BKSessionControllerDelegate> delegate;
-@property (nonatomic, retain) NSMutableData *receivedData;
+
+/**
+ * Received data from a remote peer.
+ */
+@property (nonatomic, retain, readonly) NSMutableData *receivedData;
+
+/**
+ * The current progress represented by a floating-point value between 0.0 and 1.0, inclusive.
+ * If no data received, the value is 0.0.
+ */
 @property (nonatomic, readonly) CGFloat progress;
+
+//New
+@property (nonatomic, assign) BOOL isSender;
 
 /**
  * The convenience method.
@@ -56,7 +75,7 @@ extern NSString * const BKSessionControllerPeerDidDisconnectNotification;
 -(void)sendDataToAllPeers:(NSData *)data;
 
 /**
- * A data receive handler.
+ * A data receiving handler.
  * This is the same interface/functionality as that required in a GKSession object's handler.
  */
 -(void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context;
