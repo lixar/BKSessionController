@@ -49,9 +49,6 @@ extern NSString * const BKSessionControllerPeerDidDisconnectNotification;
  */
 @property (nonatomic, readonly) CGFloat progress;
 
-//New
-@property (nonatomic, assign) BOOL isSender;
-
 /**
  * The convenience method.
  */

@@ -25,12 +25,22 @@
 @synthesize progressView = _progressView;
 @synthesize connectionStateImageView = _connectionStateImageView;
 
++(UIImage *)sessionEnabledImage{
+	return [UIImage imageNamed:@"55-network-white.png"];
+}
+
++(UIImage *)sessionDisabledImage{
+	return [UIImage imageNamed:@"55-network-gray.png"];
+}
+
 -(void)viewDidLoad{
 	_label.text = @"";
 	_label.textColor = [UIColor whiteColor];
 	_indicator.hidesWhenStopped = YES;
 	_progressView.hidden = YES;
-	_connectionStateImageView.alpha = 0.0;
+	
+	//_connectionStateImageView.alpha = 0.0;
+	_connectionStateImageView.image = [[self class] sessionDisabledImage];
 }
 
 -(IBAction)findPeer:(id)sender{	
@@ -42,6 +52,16 @@
 }
 
 -(IBAction)selectImage:(id)sender{
+	if (_sessionController == nil){
+		UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:@"No peers connected."
+															 message:nil 
+															delegate:nil 
+												   cancelButtonTitle:@"OK" 
+												   otherButtonTitles:nil] autorelease];
+		[alertView show];
+		return;
+	}
+	
 	UIImagePickerController *imagePicker = [[[UIImagePickerController alloc] init] autorelease];
 	imagePicker.delegate = self;
 	imagePicker.allowsEditing = NO;
@@ -55,7 +75,7 @@
 }
 
 -(void)sendImage:(UIImage *)image{
-	NSLog(@"%s", __FUNCTION__);
+	//NSLog(@"%s", __FUNCTION__);
 	
 	if (_sessionController == nil){
 		return;
