@@ -12,7 +12,7 @@
 @implementation TestVC (_GKPeerPickerControllerDelegate)
 
 - (void)peerPickerController:(GKPeerPickerController *) picker didConnectPeer:(NSString *) peerID toSession:(GKSession *) session{
-	NSLog(@"%s", __FUNCTION__);
+	//NSLog(@"%s", __FUNCTION__);
 	
 	[self createSession:session];
 	
@@ -22,7 +22,7 @@
 }
 
 - (void)peerPickerControllerDidCancel:(GKPeerPickerController *) picker{
-	NSLog(@"%s", __FUNCTION__);
+	//NSLog(@"%s", __FUNCTION__);
 	
 	//Cleanups
 	picker.delegate = nil;

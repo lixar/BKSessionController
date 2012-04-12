@@ -42,13 +42,16 @@
 
 -(void)sessionControllerPeerDidConnect:(NSNotification *)aNotification{
 	[self _setLabelText:@"Peer connected."];
-	[self _showConnectionStateImageView];
 	
+	//[self _showConnectionStateImageView];
+	_connectionStateImageView.image = [[self class] sessionEnabledImage];
 }
 
 -(void)sessionControllerPeerDidDisconnect:(NSNotification *)aNotification{
 	[self _setLabelText:@"Peer disconnected."];
-	[self _hideConnectionStateImageView];
+	
+	//[self _hideConnectionStateImageView];
+	_connectionStateImageView.image = [[self class] sessionDisabledImage];
 }
 
 @end

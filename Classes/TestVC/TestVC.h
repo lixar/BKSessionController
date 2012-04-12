@@ -28,6 +28,9 @@
 @property (nonatomic, assign) UIProgressView *progressView;
 @property (nonatomic, assign) UIImageView *connectionStateImageView;
 
++(UIImage *)sessionEnabledImage;
++(UIImage *)sessionDisabledImage;
+
 /**
  * Finds other devices connected to via a GKSession object.
  */
