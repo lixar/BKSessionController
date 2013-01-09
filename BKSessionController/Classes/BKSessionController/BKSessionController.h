@@ -17,16 +17,19 @@ extern NSString * const BKSessionControllerReceiverWillStartReceivingDataNotific
 extern NSString * const BKSessionControllerReceiverDidFinishReceivingDataNotification;
 extern NSString * const BKSessionControllerReceiverDidReceiveDataNotification;
 extern NSString * const BKSessionControllerPeerDidConnectNotification;
+extern NSString * const BKSessionControllerPeerIsAvailable;
+extern NSString * const BKSessionControllerPeerConnectionFailedNotification;
 extern NSString * const BKSessionControllerPeerDidDisconnectNotification;
+extern NSString * const BKSessionControllerPeerRequestConnectionNotification;
 
 /**
  * Deals with a large file transmittion via a GKSession object.
  */
 @interface BKSessionController : NSObject {
 	GKSession *_session;
-	NSMutableData *_receivedData;
 	id <BKSessionControllerDelegate> _delegate;
 	CGFloat _progress;
+  NSMutableDictionary *_isChunkDataFromPeer;
 	
 	//New
 	BOOL _isSender;
@@ -41,7 +44,7 @@ extern NSString * const BKSessionControllerPeerDidDisconnectNotification;
 /**
  * Received data from a remote peer.
  */
-@property (nonatomic, retain, readonly) NSMutableData *receivedData;
+@property (nonatomic, retain, readonly) NSMutableDictionary *receivedDataFromPeer;
 
 /**
  * The current progress represented by a floating-point value between 0.0 and 1.0, inclusive.
@@ -81,4 +84,9 @@ extern NSString * const BKSessionControllerPeerDidDisconnectNotification;
  * Disconnects the session from all connected peers.
  */
 -(void)disconnect;
+
+/**
+ * Disconnect a peer from all other peers
+ */
+-(void)disconnectPeerFromPeers:(NSString *)peerID;
 @end

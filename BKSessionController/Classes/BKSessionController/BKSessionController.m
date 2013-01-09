@@ -12,6 +12,8 @@
 #import "BKSessionController-Utilities.h"
 #import "BKChunkDataContainer.h"
 
+#define MAX_MESSAGE_SIZE 87000
+
 //Public
 NSString * const BKSessionControllerSenderWillStartSendingDataNotification		= @"BKSessionControllerSenderWillStartSendingData";
 NSString * const BKSessionControllerSenderDidFinishSendingDataNotification		= @"BKSessionControllerSenderDidFinishSendingData";
@@ -19,11 +21,14 @@ NSString * const BKSessionControllerReceiverWillStartReceivingDataNotification	=
 NSString * const BKSessionControllerReceiverDidFinishReceivingDataNotification	= @"BKSessionControllerReceiverDidFinishReceivingData";
 NSString * const BKSessionControllerReceiverDidReceiveDataNotification			= @"BKSessionControllerReceiverDidReceiveData";
 NSString * const BKSessionControllerPeerDidConnectNotification					= @"BKSessionControllerPeerDidConnect";
+NSString * const BKSessionControllerPeerIsAvailable                     = @"BKSessionControllerPeerIsAvailable";
+NSString * const BKSessionControllerPeerConnectionFailedNotification				= @"BKSessionControllerPeerConnectionFailedNotification";
 NSString * const BKSessionControllerPeerDidDisconnectNotification				= @"BKSessionControllerPeerDidDisconnect";
+NSString * const BKSessionControllerPeerRequestConnectionNotification   = @"BKSessionControllerPeerRequestConnectionNotification";
 
 //Private
 @interface BKSessionController ()
-@property (nonatomic, retain, readwrite) NSMutableData *receivedData;
+@property (nonatomic, retain, readwrite) NSMutableDictionary *receivedDataFromPeer;
 -(void)_senderReceiveData:(NSData *)data fromPeer:(NSString *)peer;
 -(void)_receiverReceiveData:(NSData *)data fromPeer:(NSString *)peer;
 
@@ -34,8 +39,8 @@ NSString * const BKSessionControllerPeerDidDisconnectNotification				= @"BKSessi
 @implementation BKSessionController
 @synthesize session = _session;
 @synthesize delegate = _delegate;
-@synthesize receivedData = _receivedData;
 @synthesize progress = _progress;
+@synthesize receivedDataFromPeer = _receivedDataFromPeer;
 
 +(id)sessionControllerWithSession:(GKSession *)session{
 	return [[[[self class] alloc] initWithSession:session] autorelease];
@@ -47,6 +52,8 @@ NSString * const BKSessionControllerPeerDidDisconnectNotification				= @"BKSessi
 		_session.delegate = self;
 		[_session setDataReceiveHandler:self withContext:nil];
 		_isSender = NO;
+    _receivedDataFromPeer = [[NSMutableDictionary alloc] init];
+    _isChunkDataFromPeer = [[NSMutableDictionary alloc] init];
 	}
 	return self;
 }
@@ -54,6 +61,13 @@ NSString * const BKSessionControllerPeerDidDisconnectNotification				= @"BKSessi
 -(void)sendData:(NSData *)data toPeers:(NSArray *)peers{
 	_isSender = YES;
 	
+  if ([data length] < MAX_MESSAGE_SIZE)
+  {
+    [self _sendChunkData:data toPeers:peers];
+    _isSender = NO;
+    return;
+  }
+  
 	//Sends header data.
 	[self _sendDataHeaderToPeers:peers];
 	
@@ -75,6 +89,13 @@ NSString * const BKSessionControllerPeerDidDisconnectNotification				= @"BKSessi
 
 -(void)sendDataToAllPeers:(NSData *)data{
 	_isSender = YES;
+  
+  if ([data length] < MAX_MESSAGE_SIZE)
+  {
+    [self.session sendDataToAllPeers:data withDataMode:GKSendDataReliable error:NULL];
+    _isSender = NO;
+    return;
+  }  
 	
 	//Sends header data.
 	[self _sendDataHeaderToAllPeers];
@@ -97,17 +118,20 @@ NSString * const BKSessionControllerPeerDidDisconnectNotification				= @"BKSessi
 
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession: (GKSession *)session context:(void *)context{
 	NSLog(@"%s", __FUNCTION__);
-	
+	NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+  
 	if ([self _dataIsHeader:data]){
 		_isSender = NO;
 	}
 	
-	if (_isSender){
+	if (_isSender && ([dataString isEqualToString:BKSessionControllerSenderDidFinishSendingDataNotification] || [dataString isEqualToString:BKSessionControllerSenderWillStartSendingDataNotification])){
 		[self _senderReceiveData:data fromPeer:peer];
 	}
-	else{
+	else if (![dataString isEqualToString:BKSessionControllerReceiverDidFinishReceivingDataNotification]){
 		[self _receiverReceiveData:data fromPeer:peer];
 	}
+  
+  [dataString release];
 }
 
 /*
@@ -138,10 +162,17 @@ NSString * const BKSessionControllerPeerDidDisconnectNotification				= @"BKSessi
 	self.session = nil;
 }
 
+-(void)disconnectPeerFromPeers:(NSString *)peerID
+{
+  [_session disconnectPeerFromAllPeers:peerID];
+}
+
 -(void)dealloc{
 	self.delegate = nil;
 	self.session = nil;
-	self.receivedData = nil;
+  self.receivedDataFromPeer = nil;
+  [_isChunkDataFromPeer release];
+  _isChunkDataFromPeer = nil;
 	[super dealloc];
 }
 
@@ -171,15 +202,17 @@ NSString * const BKSessionControllerPeerDidDisconnectNotification				= @"BKSessi
  * Receives data from the sender.
  */
 -(void)_receiverReceiveData:(NSData *)data fromPeer:(NSString *)peer{
-	static BOOL haveChunkDataCount = NO;
+#warning [RG] need to move these peer specific dictionaries so can know proper progress
 	static int totalChunkDataCount = 0;
 	static int currentChunkDataCount = 0;
 	
 	//The receiver receives header data.
 	if ([self _dataIsHeader:data]){
-		self.receivedData = [[[NSMutableData alloc] init] autorelease];
+    NSMutableData *inData = [[NSMutableData alloc] init];
+    [self.receivedDataFromPeer setObject:inData forKey:peer];
+    [inData release];
 		_progress = 0.0;
-		haveChunkDataCount = NO;
+    [_isChunkDataFromPeer setObject:[NSNumber numberWithBool:NO] forKey:peer];
 		
 		[self _respondsToPeer:peer notificationName:BKSessionControllerReceiverWillStartReceivingDataNotification];
 		[self _receiverWillStartReceivingData];
@@ -189,26 +222,36 @@ NSString * const BKSessionControllerPeerDidDisconnectNotification				= @"BKSessi
 	//The receiver receives footer data.
 	if ([self _dataIsFooter:data]){
 		[self _respondsToPeer:peer notificationName:BKSessionControllerReceiverDidFinishReceivingDataNotification];
-		[self _receiverDidFinishReceivingData];
+		[self _receiverDidFinishReceivingData:peer];
 		return;
 	}
 	
+  if (![self.receivedDataFromPeer objectForKey:peer])
+  {
+    [self.receivedDataFromPeer setObject:data forKey:peer];
+    _isSender = YES;
+		[self _respondsToPeer:peer notificationName:BKSessionControllerReceiverDidFinishReceivingDataNotification];
+		[self _receiverDidFinishReceivingData:peer];
+    return;
+  }
+  
 	//The receiver receives chunk data count.
-	if(!haveChunkDataCount){
+	if(NO == [[_isChunkDataFromPeer objectForKey:peer] boolValue]){
 		NSString *str = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 		totalChunkDataCount = [str intValue];
 		currentChunkDataCount = 0;
-		haveChunkDataCount = YES;
+    [_isChunkDataFromPeer setObject:[NSNumber numberWithBool:YES] forKey:peer];
 		return;
 	}
 	
 	//The receiver receives actual data.
-	if (_receivedData){
-		[_receivedData appendData:data];
+	if ([self.receivedDataFromPeer objectForKey:peer]){
+    NSMutableData *inData = [self.receivedDataFromPeer objectForKey:peer];
+    [inData appendData:data];
 		currentChunkDataCount++;
 		_progress = (float) currentChunkDataCount / totalChunkDataCount;
 		
-		[self _receiverDidReceiveData];
+		[self _receiverDidReceiveData:peer];
 	}
 }
 /*

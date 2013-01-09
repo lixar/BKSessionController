@@ -36,23 +36,41 @@
  * Sent to the delegate before the peer (data receiver) complete receiving data.
  * A related BKSessionController object can be retrieved by the object property of the notification object.
  */
--(void)sessionControllerReceiverDidFinishReceivingData:(NSNotification *)aNotification;
+-(void)sessionControllerReceiverDidFinishReceivingData:(NSNotification *)aNotification peerID:(NSString*)peerID;
 
 /**
  * Sent to the delegate when the peer (data receiver) receives a portion of the data.
  * A related BKSessionController object can be retrieved by the object property of the notification object.
  */
--(void)sessionControllerReceiverDidReceiveData:(NSNotification *)aNotification;
+-(void)sessionControllerReceiverDidReceiveData:(NSNotification *)aNotification peerID:(NSString *)peerID;
 
 /**
  * Sent to the delegate when the peer connects to other peers.
  * A related BKSessionController object can be retrieved by the object property of the notification object.
  */
--(void)sessionControllerPeerDidConnect:(NSNotification *)aNotification;
+-(void)sessionControllerPeerDidConnect:(NSNotification *)aNotification peerID:(NSString *)peerID;
 
 /**
  * Sent to the delegate when the peer disconnects to other peers.
  * A related BKSessionController object can be retrieved by the object property of the notification object.
  */
--(void)sessionControllerPeerDidDisconnect:(NSNotification *)aNotification;
+-(void)sessionControllerPeerDidDisconnect:(NSNotification *)aNotification peerID:(NSString *)peerID;
+
+/**
+ * Sent to delegate when a peer is available to connect to other peers.
+ * A related BKSessionController object can be retrieved by the object property of the notification object.
+ */
+-(void)sessionControllerPeerIsAvailable:(NSNotification *)aNotification peerID:(NSString *)peerID;
+
+/**
+ * Sent to delegate when a peer is requestion a connection
+ * A related BKSessionController object can be retrieved by the object property of the notification object.
+ */
+-(void)sessionControllerPeerRequestConnection:(NSNotification *)aNotification peerID:(NSString *)peerID;
+
+/**
+ * Sent to delegate when a peer connection fails
+ * A related BKSessionController object can be retrieved by the object property of the notification object.
+ */
+-(void)sessionControllerPeerConnectionFailed:(NSNotification *)aNotification peerID:(NSString *)peerID error:(NSError *)error;
 @end

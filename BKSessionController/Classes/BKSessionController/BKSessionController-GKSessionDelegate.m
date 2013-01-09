@@ -12,32 +12,35 @@
 @implementation BKSessionController (_GKSessionDelegate)
 
 - (void)session:(GKSession *) session connectionWithPeerFailed:(NSString *) peerID withError:(NSError *) error{
-	NSLog(@"%s", __FUNCTION__);
-	NSLog(@"Error: %@", [error localizedDescription]);
+  NSLog(@"PeerID: %@ | Error: %@", peerID, error);
+  [self _peerConnection:peerID failedWithError:error];
 }
 
 - (void)session:(GKSession *) session didFailWithError:(NSError *) error{
-	NSLog(@"%s", __FUNCTION__);
+  NSLog(@"Error: %@", error);
 }
 
 - (void)session:(GKSession *) session didReceiveConnectionRequestFromPeer:(NSString *) peerID{
-	NSLog(@"%s", __FUNCTION__);
+  NSLog(@"PeerID: %@", peerID);
+  [self _peerConnectionRequest:peerID];
 }
 
 - (void)session:(GKSession *) session peer:(NSString *) peerID didChangeState:(GKPeerConnectionState) state{
-	NSLog(@"%s", __FUNCTION__);
-	
-	switch (state) {
-		case GKPeerStateConnected:
-			[self _peerDidConnect];
-			break;
-		case GKPeerStateDisconnected:
-			[self disconnect];
-			[self _peerDidDisconnect];
-			break;	
-		default:
-			break;
-	}
+  NSLog(@"PeerID: %@ | State: %d", peerID, state);
+  
+  switch (state) {
+    case GKPeerStateAvailable:
+      [self _peerAvailable:peerID];
+      break;
+    case GKPeerStateConnected:
+      [self _peerDidConnect:peerID];
+      break;
+    case GKPeerStateDisconnected:
+      [self _peerDidDisconnect:peerID];
+      break;	
+    default:
+      break;
+  }
 }
 
 @end

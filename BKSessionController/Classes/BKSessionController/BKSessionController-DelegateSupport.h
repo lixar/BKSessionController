@@ -16,8 +16,11 @@
 -(void)_senderWillStartSendingData;
 -(void)_senderDidFinishSendingData;
 -(void)_receiverWillStartReceivingData;
--(void)_receiverDidFinishReceivingData;
--(void)_receiverDidReceiveData;
--(void)_peerDidConnect;
--(void)_peerDidDisconnect;
+-(void)_receiverDidFinishReceivingData:(NSString *)peerID;
+-(void)_receiverDidReceiveData:(NSString *)peerID;
+-(void)_peerAvailable:(NSString *)peerId;
+-(void)_peerDidConnect:(NSString *)peerId;
+-(void)_peerDidDisconnect:(NSString *)peerId;
+-(void)_peerConnection:(NSString *)peerId failedWithError:(NSError *)error;
+-(void)_peerConnectionRequest:(NSString *)peerId;
 @end
